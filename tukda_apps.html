@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Tukda Calculator </title>
+</head>
+<body>
+	<h2> Tukda Calculator </h2>
+	<form id="tukdaForm">
+		<label for="tukdaInput"> Enter Tukda : </label>
+		<input type="text" id="tukdaInput" name="tukdaInput">
+		<button type="button" onclick="calculateTukda()"> Calculate </button>
+	</form>
+
+	<div id="result"></div>
+
+	<script>
+		function gcd(a, b) {
+			while (b) {
+				[a, b] = [b, a % b];
+			}
+			return a;
+		}
+
+		function hcfOfThreeNumbers(a, b, c) {
+			const hcfAB = gcd(a, b);
+			const hcfABC = gcd(hcfAB, c);
+			return hcfABC;
+		}
+
+		function highestFactorBetween4and21(number) {
+			for (let factor = 21; factor >= 4; factor--) {
+				if ( number % factor === 0) {
+					return factor;
+				}
+			}
+		}
+
+		function genApplications(l, p, g , b) {
+			const resultDiv = document.getElementById("result");
+		
+			const output = document.createElement("div");
+			
+			if (g === 0) {
+				output.innerHTML = "<font color=red> ###############<br>";
+			} else if ( g === 1 ) {
+				output.innerHTML = "<font color=green> ###############<br>";
+			} else if ( g === 2 ) {
+				output.innerHTML = "<font color=blue> ###############<br>";
+			}
+
+			if (b === 0) {
+				if (g === 0) {
+					output.innerHTML += `${l}-${p}-${p}-${p}<br>`;
+				} else {
+					output.innerHTML += `${l}-${p}(${g})-${p}(${g})-${p}<br>`;
+				}
+			} else {
+				if (g === 0) {
+					output.innerHTML += `${l}-${p}-${p}-${p} [${b}]<br>`;
+				} else {
+					output.innerHTML += `${l}-${p}(${g})-${p}(${g})-${p} [${b}]<br>`;
+				}
+			}
+			if (g === 0) {
+				output.innerHTML += "<font color=red> ###############<br>";
+			} else if ( g === 1 ) {
+				output.innerHTML += "<font color=green> ###############<br>";
+			} else if ( g === 2 ) {
+				output.innerHTML += "<font color=blue> ###############<br>";
+			}
+
+			const t0 = highestFactorBetween4and21(parseInt(l + 3*p + 2*g - 1));
+			if (t0 === null) {
+				output.innerHTML += "Tukda: None <br>";
+			} else {
+				output.innerHTML += `Tukda: ${t0}-matra Taal<br>`;
+			}
+
+			const d1 = parseInt(l + p - 1);
+			const d2 = parseInt(4 * p + 3 * g + b + l);
+			const d3 = parseInt(3 * (l + 3 * p + 2 * g + b) - b - 1);
+
+			const generalChkdr = highestFactorBetween4and21(d3);
+			if (generalChkdr === null) {
+				output.innerHTML += "General Chakradhar: None<br>";
+			} else {
+				output.innerHTML += `General Chakradhar: ${generalChkdr}-matra Taal<br>`;
+			}
+
+			output.innerHTML += `Farmayshi Chakradhar: ${hcfOfThreeNumbers(d1, d2, d3)} matra taal <br><br></font>`;
+			
+			resultDiv.appendChild(output);
+		}
+
+		function calculateTukda() {
+			const tukda = document.getElementById('tukdaInput').value;
+			const l = parseInt(tukda.split("-")[0]);
+			const p = parseInt(tukda.split("-")[1]);
+			
+			document.getElementById('result').innerHTML = '';
+			
+			for (let g = 0; g < 3; g++) {
+				for (let b = 0; b < 3; b++) {
+					genApplications(l, p, g, b);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
