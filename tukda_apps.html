@@ -75,7 +75,7 @@
 			const d1 = parseInt(l + p - 1);
 			const d2 = parseInt(4 * p + 3 * g + b + l);
 			const d3 = parseInt(3 * (l + 3 * p + 2 * g + b) - b - 1);	
-			const t0mult = parseInt(d3 / t0);
+			const t0mult = parseInt( (l+3*p+2*g) / t0);
 			
 			if (t0 === null) {
 				output.innerHTML += "Tukda: None <br>";
