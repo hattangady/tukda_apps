@@ -72,24 +72,28 @@
 			}
 
 			const t0 = highestFactorBetween4and21(parseInt(l + 3*p + 2*g - 1));
+			const d1 = parseInt(l + p - 1);
+			const d2 = parseInt(4 * p + 3 * g + b + l);
+			const d3 = parseInt(3 * (l + 3 * p + 2 * g + b) - b - 1);	
+			const t0mult = parseInt(d3 / t0);
+			
 			if (t0 === null) {
 				output.innerHTML += "Tukda: None <br>";
 			} else {
-				output.innerHTML += `Tukda: ${t0}-matra Taal<br>`;
+				output.innerHTML += `Tukda: ${t0}-matra Taal (x${t0mult})<br>`;
 			}
 
-			const d1 = parseInt(l + p - 1);
-			const d2 = parseInt(4 * p + 3 * g + b + l);
-			const d3 = parseInt(3 * (l + 3 * p + 2 * g + b) - b - 1);
-
 			const generalChkdr = highestFactorBetween4and21(d3);
+			const generalChkdrmult = parseInt(d3 / generalChkdr);
 			if (generalChkdr === null) {
 				output.innerHTML += "General Chakradhar: None<br>";
 			} else {
-				output.innerHTML += `General Chakradhar: ${generalChkdr}-matra Taal<br>`;
+				output.innerHTML += `General Chakradhar: ${generalChkdr}-matra Taal (x${generalChkdrmult})<br>`;
 			}
-
-			output.innerHTML += `Farmayshi Chakradhar: ${hcfOfThreeNumbers(d1, d2, d3)} matra taal <br><br></font>`;
+			
+			const farmChkdrTaal = hcfOfThreeNumbers(d1, d2, d3);
+			const farmChkdrTaalMult = parseInt( d3 / farmChkdrTaal);
+			output.innerHTML += `Farmayshi Chakradhar: ${farmChkdrTaal} matra taal (x${farmChkdrTaalMult})<br><br></font>`;
 			
 			resultDiv.appendChild(output);
 		}
